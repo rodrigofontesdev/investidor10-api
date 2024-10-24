@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\NewsCollection;
 use App\Models\News;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -35,7 +36,7 @@ class FetchNewsController extends Controller
             $validated = $validator->safe();
 
             return new NewsCollection(News::cursorPaginate($validated->perPage));
-        } catch (\Throwable $error) {
+        } catch (QueryException $error) {
             return Response::json([
                 'type' => 'API_ERROR',
                 'code' => 500,

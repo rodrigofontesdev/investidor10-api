@@ -36,7 +36,7 @@ describe('Fetch News', function () {
         $newResponse->assertStatus(200);
         $newResponse->assertJson(
             fn(AssertableJson $json) =>
-            $json->has('data', 5)
+            $json->has('data', $perPage)
                 ->has(
                     'data.0',
                     fn(AssertableJson $json) =>
