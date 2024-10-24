@@ -19,7 +19,7 @@ describe('Fetch News By Category', function () {
     });
 
     it('should return an error response if the category does not exists', function () {
-        $response = $this->getJson($this->endpoint . '/abacate');
+        $response = $this->getJson($this->endpoint.'/abacate');
 
         $response->assertStatus(400);
         $response->assertInvalid(['category']);
@@ -34,12 +34,10 @@ describe('Fetch News By Category', function () {
 
         $response->assertStatus(200);
         $response->assertJson(
-            fn(AssertableJson $json) =>
-            $json->has(
+            fn (AssertableJson $json) => $json->has(
                 'data',
                 $perPage,
-                fn(AssertableJson $json) =>
-                $json->where('category.id', $category->id)->etc()
+                fn (AssertableJson $json) => $json->where('category.id', $category->id)->etc()
             )->etc()
         );
     });
@@ -55,12 +53,10 @@ describe('Fetch News By Category', function () {
 
         $newResponse->assertStatus(200);
         $newResponse->assertJson(
-            fn(AssertableJson $json) =>
-            $json->has('data', $perPage)
+            fn (AssertableJson $json) => $json->has('data', $perPage)
                 ->has(
                     'data.0',
-                    fn(AssertableJson $json) =>
-                    $json->where('id', 6)->etc()
+                    fn (AssertableJson $json) => $json->where('id', 6)->etc()
                 )->etc()
         );
     });

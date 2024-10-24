@@ -23,7 +23,7 @@ class Category extends Model
     protected function slug(): Attribute
     {
         return Attribute::make(
-            set: fn(string $value) => Str::slug($value)
+            set: fn (string $value) => Str::slug($value)
         );
     }
 }

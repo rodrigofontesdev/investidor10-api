@@ -9,7 +9,7 @@ describe('Fetch News', function () {
     });
 
     it('should return an error response if perPage parameter is not a number', function () {
-        $response = $this->getJson($this->endpoint . '/?perPage=xyz');
+        $response = $this->getJson($this->endpoint.'/?perPage=xyz');
 
         $response->assertStatus(400);
         $response->assertInvalid(['perPage']);
@@ -35,12 +35,10 @@ describe('Fetch News', function () {
 
         $newResponse->assertStatus(200);
         $newResponse->assertJson(
-            fn(AssertableJson $json) =>
-            $json->has('data', $perPage)
+            fn (AssertableJson $json) => $json->has('data', $perPage)
                 ->has(
                     'data.0',
-                    fn(AssertableJson $json) =>
-                    $json->where('id', 6)
+                    fn (AssertableJson $json) => $json->where('id', 6)
                         ->etc()
                 )
                 ->etc()

@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Validator;
 
 class FetchNewsByCategoryController extends Controller
 {
-    public function __invoke(Request $request, string $category): JsonResource | JsonResponse
+    public function __invoke(Request $request, string $category): JsonResource|JsonResponse
     {
         $request->merge(['category' => $category]);
 
         $validator = Validator::make($request->all(), [
             'perPage' => ['numeric'],
             'cursor' => ['string'],
-            'category' => ['string', 'exists:categories,slug']
+            'category' => ['string', 'exists:categories,slug'],
         ]);
 
         if ($validator->fails()) {
@@ -30,7 +30,7 @@ class FetchNewsByCategoryController extends Controller
                 'type' => 'INVALID_REQUEST_ERROR',
                 'code' => 400,
                 'message' => 'The request was not accepted due to a missing required field or an error in the field format.',
-                'path' => '/' . $request->path(),
+                'path' => '/'.$request->path(),
                 'timestamp' => now(),
                 'errors' => $validator->errors(),
             ], 400);
@@ -50,8 +50,8 @@ class FetchNewsByCategoryController extends Controller
             return Response::json([
                 'type' => 'API_ERROR',
                 'code' => 500,
-                'message' => 'Something went wrong with our servers. Please, contact the system admin at ' . config('mail.from.address') . '.',
-                'path' => '/' . $request->path(),
+                'message' => 'Something went wrong with our servers. Please, contact the system admin at '.config('mail.from.address').'.',
+                'path' => '/'.$request->path(),
                 'timestamp' => now(),
                 'errors' => $error->getMessage(),
             ], 500);

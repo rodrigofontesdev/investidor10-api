@@ -10,7 +10,7 @@ describe('Fetch Single News', function () {
     });
 
     it('should return an error response if the news does not exists', function () {
-        $response = $this->getJson($this->endpoint . '/some-slug');
+        $response = $this->getJson($this->endpoint.'/some-slug');
 
         $response->assertStatus(400);
         $response->assertInvalid(['slug']);
@@ -20,12 +20,11 @@ describe('Fetch Single News', function () {
         $category = Category::factory()->create();
         $news = News::factory()->create(['category' => $category->id]);
 
-        $response = $this->getJson($this->endpoint . '/' . $news->slug);
+        $response = $this->getJson($this->endpoint.'/'.$news->slug);
 
         $response->assertStatus(200);
         $response->assertJson(
-            fn(AssertableJson $json) =>
-            $json->where('data.slug', $news->slug)
+            fn (AssertableJson $json) => $json->where('data.slug', $news->slug)
                 ->etc()
         );
     });
