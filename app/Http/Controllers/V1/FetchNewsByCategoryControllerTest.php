@@ -39,7 +39,7 @@ describe('Fetch News By Category', function () {
                 'data',
                 $perPage,
                 fn(AssertableJson $json) =>
-                $json->where('category', $category->id)->etc()
+                $json->where('category.id', $category->id)->etc()
             )->etc()
         );
     });

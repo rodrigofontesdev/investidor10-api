@@ -13,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
-class FetchNewsByCategory extends Controller
+class FetchNewsByCategoryController extends Controller
 {
     public function __invoke(Request $request, string $category): JsonResource | JsonResponse
     {
