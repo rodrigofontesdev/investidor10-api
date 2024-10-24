@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class News extends Model
+class Category extends Model
 {
     use HasFactory;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<News, $this>
      */
-    public function categoryItem(): BelongsTo
+    public function newsItem(): HasMany
     {
-        return $this->belongsTo(Category::class, 'category', 'id');
+        return $this->hasMany(News::class, 'category', 'id');
     }
 
     protected function slug(): Attribute
