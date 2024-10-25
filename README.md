@@ -66,13 +66,21 @@ Para finalizar verifique se a aplicação subiu com sucesso, visite: [http://loc
 - [x] Ordenação de resultados
 - [x] Versionamento da API
 
+## Testes
+
+Para executar os testes, digite o comando abaixo no terminal do serviço `php-fpm`:
+
+```sh
+php artisan test
+```
+
 ## Considerações
 
-Para construção da API Rest, elaborei uma arquitetura para versionamento da API, imaginando um cenário onde o projeto continuasse crescendo.
+Para construção da API Rest, segui uma arquitetura para versionamento da API, imaginando um cenário onde o projeto continuasse crescendo.
 
 Os endpoints foram desenvolvidos sob a metodologia TDD, essa abordagem permite a detecção precoce de bugs, a criação de código mais robusto e a manutenção da integridade da API mesmo diante de modificações.
 
-Pensando no aperfeiçoamento do projeto, pode ser interessante integrar uma ferramenta de Logging e a criação de uma classe para ser responsável por criar novas instancias de erros da API.
+Pensando no aperfeiçoamento do projeto, pode ser interessante integrar uma ferramenta de Logging e a criação de uma classe para ser responsável por criar novas instâncias de erros da API.
 
 ## Construído com
 
