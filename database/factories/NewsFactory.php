@@ -19,6 +19,14 @@ class NewsFactory extends Factory
             'slug' => $title,
             'short_description' => fake()->text(120),
             'content' => fake()->paragraphs(8, true),
+            'featured' => false,
         ];
+    }
+
+    public function isFeatured(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'featured' => true,
+        ]);
     }
 }

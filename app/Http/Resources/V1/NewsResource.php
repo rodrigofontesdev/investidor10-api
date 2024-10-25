@@ -15,6 +15,7 @@ class NewsResource extends JsonResource
             'slug' => $this->slug,
             'short_description' => $this->short_description,
             'content' => $this->content,
+            'featured' => $this->featured,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'category' => $this->categoryItem,

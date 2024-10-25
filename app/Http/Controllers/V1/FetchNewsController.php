@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\NewsCollection;
 use App\Models\News;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,8 @@ class FetchNewsController extends Controller
         $validator = Validator::make($request->all(), [
             'perPage' => ['numeric'],
             'cursor' => ['string'],
+            'featured' => ['in:true,false'],
+            'orderBy' => ['in:asc,desc'],
         ]);
 
         if ($validator->fails()) {
@@ -34,8 +37,22 @@ class FetchNewsController extends Controller
 
         try {
             $validated = $validator->safe();
+            $featured = (bool) $validated->featured;
+            $orderBy = $validated->orderBy;
 
-            return new NewsCollection(News::cursorPaginate($validated->perPage));
+            $news = News::when(
+                $featured,
+                function (Builder $query, bool $featured) {
+                    $query->where('featured', $featured);
+                }
+            )->when(
+                $orderBy,
+                function (Builder $query, string $orderBy) {
+                    $query->orderBy('id', $orderBy);
+                }
+            )->cursorPaginate($validated->perPage);
+
+            return new NewsCollection($news);
         } catch (QueryException $error) {
             return Response::json([
                 'type' => 'API_ERROR',

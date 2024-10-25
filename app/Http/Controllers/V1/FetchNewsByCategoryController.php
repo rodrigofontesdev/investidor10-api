@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\NewsCollection;
 use App\Models\Category;
 use App\Models\News;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -23,6 +24,8 @@ class FetchNewsByCategoryController extends Controller
             'perPage' => ['numeric'],
             'cursor' => ['string'],
             'category' => ['string', 'exists:categories,slug'],
+            'featured' => ['in:true,false'],
+            'orderBy' => ['in:asc,desc'],
         ]);
 
         if ($validator->fails()) {
@@ -38,14 +41,27 @@ class FetchNewsByCategoryController extends Controller
 
         try {
             $validated = $validator->safe();
+            $featured = (bool) $validated->featured;
+            $orderBy = $validated->orderBy;
+
             $categoryResource = Category::where('slug', $validated->category)
                 ->select('id')
                 ->firstOrFail();
 
-            return new NewsCollection(
-                News::where('category', $categoryResource->id)
-                    ->cursorPaginate($validated->perPage)
-            );
+            $news = News::where('category', $categoryResource->id)
+                ->when(
+                    $featured,
+                    function (Builder $query, bool $featured) {
+                        $query->where('featured', $featured);
+                    }
+                )->when(
+                    $orderBy,
+                    function (Builder $query, string $orderBy) {
+                        $query->orderBy('id', $orderBy);
+                    }
+                )->cursorPaginate($validated->perPage);
+
+            return new NewsCollection($news);
         } catch (QueryException $error) {
             return Response::json([
                 'type' => 'API_ERROR',

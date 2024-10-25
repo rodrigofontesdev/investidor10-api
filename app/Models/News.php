@@ -12,6 +12,13 @@ class News extends Model
 {
     use HasFactory;
 
+    protected function casts(): array
+    {
+        return [
+            'featured' => 'boolean',
+        ];
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, $this>
      */
