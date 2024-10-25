@@ -56,3 +56,23 @@ php artisan migrate --seed
 ```
 
 Para finalizar verifique se a aplicação subiu com sucesso, visite: [http://localhost/up](http://localhost/up).
+
+## Funcionalidades
+
+- [x] Retornar as notícias por categoria
+- [x] Retornar todas as notícias
+- [x] Retornar o contéudo da notícia
+- [x] Paginação de resultados
+- [x] Ordenação de resultados
+- [x] Versionamento da API
+
+## Considerações
+
+Para construção da API Rest, elaborei uma arquitetura para versionamento da API, imaginando um cenário onde o projeto continuasse crescendo.
+
+Utilizei técnica TDD para construção dos endpoints, garantindo 
+
+## Construído com
+
+- Laravel 11.x
+- Docker
