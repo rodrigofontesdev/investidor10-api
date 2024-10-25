@@ -70,7 +70,9 @@ Para finalizar verifique se a aplicação subiu com sucesso, visite: [http://loc
 
 Para construção da API Rest, elaborei uma arquitetura para versionamento da API, imaginando um cenário onde o projeto continuasse crescendo.
 
-Utilizei técnica TDD para construção dos endpoints, garantindo 
+Os endpoints foram desenvolvidos sob a metodologia TDD, essa abordagem permite a detecção precoce de bugs, a criação de código mais robusto e a manutenção da integridade da API mesmo diante de modificações.
+
+Pensando no aperfeiçoamento do projeto, pode ser interessante integrar uma ferramenta de Logging e a criação de uma classe para ser responsável por criar novas instancias de erros da API.
 
 ## Construído com
 
