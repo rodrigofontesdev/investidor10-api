@@ -1,1 +1,58 @@
 # 10News
+
+Uma API Rest da aplicação de notícias [10News](https://github.com/rodrigofontesdev/investidor10), o projeto foi elaborado como solução para o teste técnico da **Investidor10**.
+
+Neste repositório está localizado o back-end do projeto, como requisito do desafio foi utilizado o framework **Laravel**.
+
+## Pré-requisitos
+
+- Git
+- Docker
+
+## Como iniciar
+
+Clone o repositório em um novo diretório:
+
+```sh
+git clone git@github.com:rodrigofontesdev/investidor10-api.git
+```
+
+Inicie o Docker container:
+
+```sh
+docker compose up -d
+```
+
+```sh
+docker container ls
+```
+
+Abra um terminal `shell` do serviço `php-fpm`:
+
+```sh
+docker exec -it investidor10-api-php-fpm-1 sh
+```
+
+```sh
+composer install
+```
+
+_Nota: `investidor10-api` é o nome da pasta do projeto._
+
+Crie o arquivo `.env`:
+
+```sh
+cp .env.example .env
+```
+
+Execute as migrations do banco de dados:
+
+```sh
+touch database/database.sqlite
+```
+
+```sh
+php artisan migrate --seed
+```
+
+Para finalizar verifique se a aplicação subiu com sucesso, visite: [http://localhost/up](http://localhost/up).
