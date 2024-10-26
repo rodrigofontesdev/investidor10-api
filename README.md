@@ -86,3 +86,7 @@ Pensando no aperfeiçoamento do projeto, pode ser interessante integrar uma ferr
 
 - Laravel 11.x
 - Docker
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE.md](LICENSE) para obter detalhes.
